@@ -5,7 +5,7 @@
   import { page } from "$app/stores";
   import axios from "axios";
   import { goto } from "$app/navigation";
-  import { afterNavigate } from "$app/navigation";
+  import { PUBLIC_REQUEST_URL } from "$env/static/public"
 
   let title;
   let body;
@@ -28,9 +28,6 @@
     body = pageResponse.data.post.body;
 
     postCreatorId = pageResponse.data.user.id;
-    // if (user?.id != postCreatorId) {
-    //   goto("/");
-    // }
   });
 
   const editPost = async () => {
@@ -42,7 +39,7 @@
       const token = localStorage.getItem("token");
       await axios
         .post(
-          "http://localhost:8080/posts/edit",
+          PUBLIC_REQUEST_URL + "/posts/edit",
           { id: postId, title, body },
           { headers: { Authorization: "Bearer " + token } }
         )
@@ -82,7 +79,7 @@
             {#if formLoading}
               <span class="loading loading-spinner loading-md"></span>
             {:else}
-              Create post
+              Edit post
             {/if}
           </button>
         </div>

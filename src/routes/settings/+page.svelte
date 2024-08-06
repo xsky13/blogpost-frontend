@@ -4,7 +4,7 @@
   import { goto } from "$app/navigation";
   import Loading from "../loading.svelte";
   import axios from "axios";
-  import { getUser } from "$lib/index";
+  import { PUBLIC_REQUEST_URL } from "$env/static/public"
 
   let user;
 
@@ -39,7 +39,7 @@
       formLoading = true;
       axios
         .post(
-          "http://localhost:8080/edit",
+          PUBLIC_REQUEST_URL + "/edit",
           { name, email },
           { headers: { Authorization: "Bearer " + token } }
         )

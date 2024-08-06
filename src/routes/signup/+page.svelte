@@ -2,7 +2,7 @@
   import axios from "axios";
   import { goto } from "$app/navigation";
   import { userStore } from "../../stores";
-  import Loading from "../loading.svelte";
+  import { PUBLIC_REQUEST_URL } from "$env/static/public"
 
   let user;
   userStore.subscribe((value) => (user = value));
@@ -32,7 +32,7 @@
       error = "";
       formLoading = true;
       axios
-        .post("http://localhost:8080/signup", { name, email, password })
+        .post(PUBLIC_REQUEST_URL + "/signup", { name, email, password })
         .then((res) => {
           formLoading = false;
           if (res.data.message == "success") {

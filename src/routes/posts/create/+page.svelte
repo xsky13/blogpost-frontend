@@ -3,6 +3,8 @@
   import Main from "../../../components/main.svelte";
   import { userStore } from "../../../stores";
   import { goto } from "$app/navigation";
+  import { PUBLIC_REQUEST_URL } from "$env/static/public"
+
   let user;
 
   let title = "";
@@ -22,7 +24,7 @@
       formLoading = true;
       axios
         .post(
-          "http://localhost:8080/posts/create",
+          PUBLIC_REQUEST_URL + "/posts/create",
           { title, body },
           { headers: { Authorization: "Bearer " + token } }
         )

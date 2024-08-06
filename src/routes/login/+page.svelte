@@ -19,7 +19,7 @@
   const login = () => {
     formLoading = true;
     axios
-      .post("http://localhost:8080/login", { email, password })
+      .post(PUBLIC_REQUEST_URL + "/login", { email, password })
       .then((res) => {
         formLoading = false;
         if (res.data.token) {

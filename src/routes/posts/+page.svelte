@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import Main from "../../components/main.svelte";
   import { userStore } from "../../stores";
+  import { PUBLIC_REQUEST_URL } from "$env/static/public"
 
   let posts = [];
   let user;
@@ -10,7 +11,7 @@
   userStore.subscribe((value) => (user = value));
 
   onMount(() => {
-    axios.get("http://localhost:8080/posts/all").then((res) => posts = res.data);
+    axios.get(PUBLIC_REQUEST_URL + "/posts/all").then((res) => posts = res.data);
   });
 </script>
 

@@ -5,6 +5,7 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
+  import { PUBLIC_REQUEST_URL } from "$env/static/public"
 
   let post = {};
   let postCreator = {};
@@ -31,7 +32,7 @@
         const token = localStorage.getItem("token");
         await axios
           .post(
-            "http://localhost:8080/posts/delete",
+            PUBLIC_REQUEST_URL + "/posts/delete",
             { id: post.id },
             { headers: { Authorization: "Bearer " + token } }
           )

@@ -4,6 +4,7 @@
   import { userStore } from "../stores";
   import Loading from "./loading.svelte";
   import axios from "axios"
+  import { PUBLIC_REQUEST_URL } from "$env/static/public"
 
   let user;
 
@@ -17,7 +18,7 @@
   onMount(async () => {
     const token = localStorage.getItem("token");
     await axios
-      .get("http://localhost:8080/getUserPosts", {
+      .get(PUBLIC_REQUEST_URL + "/getUserPosts", {
         headers: { Authorization: "Bearer " + token },
       })
       .then(res => {
