@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import Main from "../../components/main.svelte";
   import { userStore } from "../../stores";
-  import { PUBLIC_REQUEST_URL } from "$env/static/public"
+  import { PUBLIC_REQUEST_URL } from "$env/static/public";
   import Loading from "../loading.svelte";
 
   let posts = [];
@@ -12,7 +12,9 @@
   userStore.subscribe((value) => (user = value));
 
   onMount(() => {
-    axios.get(PUBLIC_REQUEST_URL + "/posts/all").then((res) => posts = res.data);
+    axios
+      .get(PUBLIC_REQUEST_URL + "/posts/all")
+      .then((res) => (posts = res.data));
   });
 </script>
 
@@ -27,8 +29,17 @@
   <div class="mt-6">
     {#if posts.length}
       {#each posts as post}
-        <div class="p-6 mb-6 rounded-lg bg-base-200 w-full">
-          <a href="./posts/{post.id}" class="text-xl">{post.title}</a>
+        <div class="post">
+          <a href="./posts/{post.id}" class="text-lg font-bold">{post.title}</a>
+          <div class="text-sm">
+            <div class="float-right">By {post.User.name}</div>
+            <br />
+            <div class="float-right">
+              {new Date(post.timeCreated).getUTCDate()}/{new Date(
+                post.timeCreated
+              ).getUTCMonth() + 1}/{new Date(post.timeCreated).getUTCFullYear()}
+            </div>
+          </div>
         </div>
       {/each}
     {:else}

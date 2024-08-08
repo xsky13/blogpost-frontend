@@ -19,4 +19,8 @@
     h3 {
         @apply text-3xl font-bold;
     }
+
+    .post {
+        @apply my-6 flex justify-between py-3 px-5 border dark:border-gray-400 dark:shadow-md border-gray-100 rounded-lg;
+    }
 }

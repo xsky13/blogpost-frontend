@@ -3,8 +3,8 @@
   import Main from "../components/main.svelte";
   import { userStore } from "../stores";
   import Loading from "./loading.svelte";
-  import axios from "axios"
-  import { PUBLIC_REQUEST_URL } from "$env/static/public"
+  import axios from "axios";
+  import { PUBLIC_REQUEST_URL } from "$env/static/public";
 
   let user;
 
@@ -21,12 +21,11 @@
       .get(PUBLIC_REQUEST_URL + "/getUserPosts", {
         headers: { Authorization: "Bearer " + token },
       })
-      .then(res => {
+      .then((res) => {
         postsLoading = false;
         posts = res.data.posts;
       });
   });
-
 </script>
 
 <Main>
@@ -40,14 +39,18 @@
         </div>
       {:else}
         {#each posts as post}
-          <a href={"posts/" + post.id} class="flex justify-between items-center my-6 shadow-sm bg-base-200 py-3 px-5 rounded-lg">
-            <span class="font-bold">
-              {post.title}
-            </span>
-            <span class="text-sm">
-              Created on {new Date(post.timeCreated).getUTCDate()}/{new Date(post.timeCreated).getUTCMonth() + 1}/{new Date(post.timeCreated).getUTCFullYear()}
-            </span>
-          </a>
+          <div
+            class="post"
+          >
+            <a href="./posts/{post.id}" class="font-bold"
+              >{post.title}</a
+            >
+            <div class="text-sm">
+              {new Date(post.timeCreated).getUTCDate()}/{new Date(
+                post.timeCreated
+              ).getUTCMonth() + 1}/{new Date(post.timeCreated).getUTCFullYear()}
+            </div>
+          </div>
         {/each}
       {/if}
     </div>
