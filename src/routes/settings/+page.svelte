@@ -25,7 +25,6 @@
 
   const editInfo = () => {
     const token = localStorage.getItem("token");
-    console.log(token);
 
     if (name.length == 0) {
       error = "Name can't be empty";
@@ -45,7 +44,6 @@
         )
         .then((res) => {
           formLoading = false;
-          console.log(res.data);
           if (res.data.message !== "Success") {
             error = res.data.message;
           } else {

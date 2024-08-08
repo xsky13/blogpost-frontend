@@ -10,7 +10,6 @@
 
   beforeNavigate(() => {
     loading = true;
-    console.log(loading);
   });
 
   afterNavigate(() => {

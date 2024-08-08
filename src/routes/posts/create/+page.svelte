@@ -16,7 +16,6 @@
 
   const createPost = () => {
     const token = localStorage.getItem("token");
-    console.log();
 
     if (!title.length || !body.length) {
       error = "Fields can't be empty";
