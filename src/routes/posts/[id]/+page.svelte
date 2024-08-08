@@ -5,9 +5,10 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
-  import { PUBLIC_REQUEST_URL } from "$env/static/public"
+  import { PUBLIC_REQUEST_URL } from "$env/static/public";
+  import Loading from "../../loading.svelte";
 
-  let post = {};
+  let post = "loading";
   let postCreator = {};
   let timeCreated = {};
 
@@ -15,7 +16,7 @@
   userStore.subscribe((value) => (user = value));
 
   onMount(() => {
-    axios.get(`http://localhost:8080/posts/${$page.params.id}`).then((res) => {
+    axios.get(`${PUBLIC_REQUEST_URL}/posts/${$page.params.id}`).then((res) => {
       post = res.data.post;
       postCreator = res.data.user;
       const date = new Date(post.timeCreated);
@@ -47,19 +48,27 @@
 </script>
 
 <Main>
-  <div class="flex justify-between">
-    <h1>{post.title}</h1>
-    {#if postCreator.id == user.id}
-      <div class="flex">
-        <a href="./{$page.params.id}/edit" class="btn btn-primary mr-6">Edit</a>
-        <button on:click={deletePost} class="btn btn-outline">Delete</button>
-      </div>
-    {/if}
-  </div>
-  <div class="my-6">
-    <p>{post.body}</p>
-  </div>
-  <p>
-    By {postCreator.name} on {timeCreated.day}/{timeCreated.month}/{timeCreated.year}
-  </p>
+  {#if post == "loading"}
+    <div class="block m-auto">
+      <Loading />
+    </div>
+  {:else}
+    <div class="flex justify-between">
+      <h1>{post.title}</h1>
+      {#if postCreator.id == user.id}
+        <div class="flex">
+          <a href="./{$page.params.id}/edit" class="btn btn-primary mr-6"
+            >Edit</a
+          >
+          <button on:click={deletePost} class="btn btn-outline">Delete</button>
+        </div>
+      {/if}
+    </div>
+    <div class="my-6">
+      <p>{post.body}</p>
+    </div>
+    <p>
+      By {postCreator.name} on {timeCreated.day}/{timeCreated.month}/{timeCreated.year}
+    </p>
+  {/if}
 </Main>

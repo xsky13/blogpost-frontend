@@ -5,8 +5,10 @@
   import { page } from "$app/stores";
   import axios from "axios";
   import { goto } from "$app/navigation";
-  import { PUBLIC_REQUEST_URL } from "$env/static/public"
+  import { PUBLIC_REQUEST_URL } from "$env/static/public";
+  import Loading from "../../../loading.svelte";
 
+  let postLoading = true;
   let title;
   let body;
   let error;
@@ -19,15 +21,15 @@
   userStore.subscribe((value) => (user = value));
 
   onMount(async () => {
-    const pageResponse = await axios.get(
-      `http://localhost:8080/posts/${$page.params.id}`
-    );
-
-    postId = pageResponse.data.post.id;
-    title = pageResponse.data.post.title;
-    body = pageResponse.data.post.body;
-
-    postCreatorId = pageResponse.data.user.id;
+    await axios
+      .get(`${PUBLIC_REQUEST_URL}/posts/${$page.params.id}`)
+      .then((res) => {
+        postId = res.data.post.id;
+        title = res.data.post.title;
+        body = res.data.post.body;
+        postCreatorId = res.data.user.id;
+        postLoading = false;
+      });
   });
 
   const editPost = async () => {
@@ -53,7 +55,11 @@
 </script>
 
 <Main>
-  {#if user && user.id && user.id == postCreatorId}
+  {#if postLoading}
+    <div class="block m-auto">
+      <Loading />
+    </div>
+  {:else if user && user.id && user.id == postCreatorId}
     <div class="w-5/12 block m-auto">
       <h1>Edit post</h1>
       <form method="post" on:submit|preventDefault={editPost}>

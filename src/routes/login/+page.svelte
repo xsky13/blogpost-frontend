@@ -2,6 +2,7 @@
   import axios from "axios";
   import { goto } from "$app/navigation";
   import { userStore } from "../../stores";
+  import { PUBLIC_REQUEST_URL } from "$env/static/public"
 
   let formLoading = false;
 

@@ -4,6 +4,7 @@
   import Main from "../../components/main.svelte";
   import { userStore } from "../../stores";
   import { PUBLIC_REQUEST_URL } from "$env/static/public"
+  import Loading from "../loading.svelte";
 
   let posts = [];
   let user;
@@ -31,9 +32,8 @@
         </div>
       {/each}
     {:else}
-      <div class="p-10 rounded-box bg-base-200 w-full text-center">
-        <p class="text-xl font-bold">There are no posts yet</p>
-        <span class="text-sm">Please create some</span>
+      <div class="block m-auto">
+        <Loading />
       </div>
     {/if}
   </div>

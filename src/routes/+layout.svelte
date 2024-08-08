@@ -6,7 +6,7 @@
   import { afterNavigate, beforeNavigate } from "$app/navigation";
   import Loading from "./loading.svelte";
 
-  let loading = true;
+  let loading = false;
 
   beforeNavigate(() => {
     loading = true;
