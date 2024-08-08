@@ -34,7 +34,7 @@
 {#if loading}
   <Loading />
 {:else}
-  <div class="navbar bg-base-200 rounded-box shadow-xl fixed w-full">
+  <div class="navbar border-b dark:border-gray-500 border-gray-200 fixed w-full">
     <div class="navbar-start">
       <a href="/" class="btn btn-ghost text-xl">Blogpost</a>
     </div>
